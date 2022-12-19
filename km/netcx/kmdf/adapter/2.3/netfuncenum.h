@@ -15,8 +15,8 @@ Environment:
     Warning: manual changes to this file will be lost.
 --*/
 
-#ifndef _NETFUNCENUM_2_2_H_
-#define _NETFUNCENUM_2_2_H_
+#ifndef _NETFUNCENUM_2_3_H_
+#define _NETFUNCENUM_2_3_H_
 
 extern PNET_DRIVER_GLOBALS NetDriverGlobals;
 
@@ -146,13 +146,9 @@ typedef enum _NETFUNCENUM {
     NetTxQueueGetDemux8021pTableIndex = 121,
     NetAdapterExtensionInitSetPowerPolicyCallbacksTableIndex = 122,
     NetAdapterInitSetSelfManagedPowerReferencesTableIndex = 123,
-    NetAdapterWifiDestroyPeerAddressDatapathTableIndex = 124,
-    NetAdapterPauseOffloadCapabilitiesTableIndex = 125,
-    NetAdapterResumeOffloadCapabilitiesTableIndex = 126,
-    NetTxQueueGetDemuxWmmInfoTableIndex = 127,
-    NetTxQueueGetDemuxPeerAddressTableIndex = 128,
-    NetFunctionTableNumEntries = 129,
+    NetAdapterLightweightInitAllocateTableIndex = 124,
+    NetFunctionTableNumEntries = 125,
 } NETFUNCENUM;
 
-#endif // _NETFUNCENUM_2_2_H_
+#endif // _NETFUNCENUM_2_3_H_
 
