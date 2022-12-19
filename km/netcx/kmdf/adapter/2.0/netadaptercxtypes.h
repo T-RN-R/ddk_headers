@@ -6,8 +6,8 @@
 //       (.x or .y) and use stubwork to regenerate the header
 //
 
-#ifndef _NETADAPTERCXTYPES_1_4_H_
-#define _NETADAPTERCXTYPES_1_4_H_
+#ifndef _NETADAPTERCXTYPES_2_0_H_
+#define _NETADAPTERCXTYPES_2_0_H_
 
 #ifndef WDF_EXTERN_C
   #ifdef __cplusplus
@@ -30,11 +30,10 @@ WDF_EXTERN_C_START
 //
 DECLARE_HANDLE( NETADAPTER );
 DECLARE_HANDLE( NETCONFIGURATION );
-DECLARE_HANDLE( NETREQUEST );
-DECLARE_HANDLE( NETREQUESTQUEUE );
 DECLARE_HANDLE( NETOFFLOAD );
 DECLARE_HANDLE( NETPACKETQUEUE );
-DECLARE_HANDLE( NETPOWERSETTINGS );
+DECLARE_HANDLE( NETWAKESOURCE );
+DECLARE_HANDLE( NETPOWEROFFLOAD );
 
 struct _NETADAPTER_INIT;
 typedef struct _NETADAPTER_INIT NETADAPTER_INIT;
@@ -46,9 +45,29 @@ typedef struct _NET_DRIVER_GLOBALS {
 typedef void (*NETFUNC) (void);
 extern NETFUNC NetFunctions[];
 
+typedef union _NET_IPV4_ADDRESS
+{
+    UINT32 Address;
+    UINT8 Value[4];
+} NET_IPV4_ADDRESS;
+
+C_ASSERT(sizeof(NET_IPV4_ADDRESS) == 4);
+
+typedef union _NET_IPV6_ADDRESS
+{
+    struct
+    {
+        UINT64 NetworkPrefix;
+        UINT64 InterfaceIdentifier;
+    } Unicast;
+    UINT8 Value[16];
+} NET_IPV6_ADDRESS;
+
+C_ASSERT(sizeof(NET_IPV6_ADDRESS) == 16);
+
 
 
 WDF_EXTERN_C_END
 
-#endif // _NETADAPTERCXTYPES_1_4_H_
+#endif // _NETADAPTERCXTYPES_2_0_H_
 

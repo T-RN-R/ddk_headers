@@ -6,8 +6,8 @@
 //       (.x or .y) and use stubwork to regenerate the header
 //
 
-#ifndef _NETREQUESTQUEUE_1_4_H_
-#define _NETREQUESTQUEUE_1_4_H_
+#ifndef _NETREQUESTQUEUEPREVIEW_2_0_H_
+#define _NETREQUESTQUEUEPREVIEW_2_0_H_
 
 #ifndef WDF_EXTERN_C
   #ifdef __cplusplus
@@ -34,11 +34,16 @@ typedef enum _NET_REQUEST_QUEUE_TYPE {
 
 #define HANDLER_TAG 'rldH'
 
+
+DECLARE_HANDLE(NETREQUESTQUEUE);
+
+
 typedef
 _Function_class_(EVT_NET_REQUEST_DEFAULT_SET_DATA)
 _IRQL_requires_same_
 _IRQL_requires_max_(PASSIVE_LEVEL)
 void
+NTAPI
 EVT_NET_REQUEST_DEFAULT_SET_DATA(
     _In_
     NETREQUESTQUEUE RequestQueue,
@@ -59,6 +64,7 @@ _Function_class_(EVT_NET_REQUEST_SET_DATA)
 _IRQL_requires_same_
 _IRQL_requires_max_(PASSIVE_LEVEL)
 void
+NTAPI
 EVT_NET_REQUEST_SET_DATA(
     _In_
     NETREQUESTQUEUE RequestQueue,
@@ -77,6 +83,7 @@ _Function_class_(EVT_NET_REQUEST_DEFAULT_QUERY_DATA)
 _IRQL_requires_same_
 _IRQL_requires_max_(PASSIVE_LEVEL)
 void
+NTAPI
 EVT_NET_REQUEST_DEFAULT_QUERY_DATA(
     _In_
     NETREQUESTQUEUE RequestQueue,
@@ -97,6 +104,7 @@ _Function_class_(EVT_NET_REQUEST_QUERY_DATA)
 _IRQL_requires_same_
 _IRQL_requires_max_(PASSIVE_LEVEL)
 void
+NTAPI
 EVT_NET_REQUEST_QUERY_DATA(
     _In_
     NETREQUESTQUEUE RequestQueue,
@@ -115,6 +123,7 @@ _Function_class_(EVT_NET_REQUEST_DEFAULT_METHOD)
 _IRQL_requires_same_
 _IRQL_requires_max_(PASSIVE_LEVEL)
 void
+NTAPI
 EVT_NET_REQUEST_DEFAULT_METHOD(
     _In_
     NETREQUESTQUEUE RequestQueue,
@@ -139,6 +148,7 @@ _Function_class_(EVT_NET_REQUEST_METHOD)
 _IRQL_requires_same_
 _IRQL_requires_max_(PASSIVE_LEVEL)
 void
+NTAPI
 EVT_NET_REQUEST_METHOD(
     _In_
     NETREQUESTQUEUE RequestQueue,
@@ -161,6 +171,7 @@ _Function_class_(EVT_NET_REQUEST_DEFAULT)
 _IRQL_requires_same_
 _IRQL_requires_max_(PASSIVE_LEVEL)
 void
+NTAPI
 EVT_NET_REQUEST_DEFAULT(
     _In_
     NETREQUESTQUEUE RequestQueue,
@@ -898,7 +909,7 @@ _Must_inspect_result_
 _IRQL_requires_max_(PASSIVE_LEVEL)
 WDFAPI
 NTSTATUS
-(*PFN_NETREQUESTQUEUECREATE)(
+(NTAPI *PFN_NETREQUESTQUEUECREATE)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -932,7 +943,7 @@ typedef
 _IRQL_requires_max_(DISPATCH_LEVEL)
 WDFAPI
 NETADAPTER
-(*PFN_NETREQUESTQUEUEGETADAPTER)(
+(NTAPI *PFN_NETREQUESTQUEUEGETADAPTER)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -955,5 +966,5 @@ NetRequestQueueGetAdapter(
 
 WDF_EXTERN_C_END
 
-#endif // _NETREQUESTQUEUE_1_4_H_
+#endif // _NETREQUESTQUEUEPREVIEW_2_0_H_
 

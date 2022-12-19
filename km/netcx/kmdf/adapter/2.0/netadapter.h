@@ -6,8 +6,8 @@
 //       (.x or .y) and use stubwork to regenerate the header
 //
 
-#ifndef _NETADAPTER_1_4_H_
-#define _NETADAPTER_1_4_H_
+#ifndef _NETADAPTER_2_0_H_
+#define _NETADAPTER_2_0_H_
 
 #ifndef WDF_EXTERN_C
   #ifdef __cplusplus
@@ -24,98 +24,20 @@
 WDF_EXTERN_C_START
 
 
-typedef enum _NET_PACKET_FILTER_TYPES_FLAGS {
-    NET_PACKET_FILTER_TYPE_DIRECTED = NDIS_PACKET_TYPE_DIRECTED,
-    NET_PACKET_FILTER_TYPE_MULTICAST = NDIS_PACKET_TYPE_MULTICAST,
-    NET_PACKET_FILTER_TYPE_ALL_MULTICAST = NDIS_PACKET_TYPE_ALL_MULTICAST,
-    NET_PACKET_FILTER_TYPE_BROADCAST = NDIS_PACKET_TYPE_BROADCAST,
-    NET_PACKET_FILTER_TYPE_SOURCE_ROUTING = NDIS_PACKET_TYPE_SOURCE_ROUTING,
-    NET_PACKET_FILTER_TYPE_PROMISCUOUS = NDIS_PACKET_TYPE_PROMISCUOUS,
-    NET_PACKET_FILTER_TYPE_ALL_LOCAL = NDIS_PACKET_TYPE_ALL_LOCAL,
-    NET_PACKET_FILTER_TYPE_MAC_FRAME = NDIS_PACKET_TYPE_MAC_FRAME,
-    NET_PACKET_FILTER_TYPE_NO_LOCAL = NDIS_PACKET_TYPE_NO_LOCAL,
-} NET_PACKET_FILTER_TYPES_FLAGS;
-
-typedef enum _NET_ADAPTER_STATISTICS_FLAGS {
-    NET_ADAPTER_STATISTICS_NO_FLAGS = 0,
-    NET_ADAPTER_STATISTICS_XMIT_OK = NDIS_STATISTICS_XMIT_OK_SUPPORTED,
-    NET_ADAPTER_STATISTICS_RCV_OK = NDIS_STATISTICS_RCV_OK_SUPPORTED,
-    NET_ADAPTER_STATISTICS_XMIT_ERROR = NDIS_STATISTICS_XMIT_ERROR_SUPPORTED,
-    NET_ADAPTER_STATISTICS_RCV_ERROR = NDIS_STATISTICS_RCV_ERROR_SUPPORTED,
-    NET_ADAPTER_STATISTICS_RCV_NO_BUFFER = NDIS_STATISTICS_RCV_NO_BUFFER_SUPPORTED,
-    NET_ADAPTER_STATISTICS_DIRECTED_BYTES_XMIT = NDIS_STATISTICS_DIRECTED_BYTES_XMIT_SUPPORTED,
-    NET_ADAPTER_STATISTICS_DIRECTED_FRAMES_XMIT = NDIS_STATISTICS_DIRECTED_FRAMES_XMIT_SUPPORTED,
-    NET_ADAPTER_STATISTICS_MULTICAST_BYTES_XMIT = NDIS_STATISTICS_MULTICAST_BYTES_XMIT_SUPPORTED,
-    NET_ADAPTER_STATISTICS_MULTICAST_FRAMES_XMIT = NDIS_STATISTICS_MULTICAST_FRAMES_XMIT_SUPPORTED,
-    NET_ADAPTER_STATISTICS_BROADCAST_BYTES_XMIT = NDIS_STATISTICS_BROADCAST_BYTES_XMIT_SUPPORTED,
-    NET_ADAPTER_STATISTICS_BROADCAST_FRAMES_XMIT = NDIS_STATISTICS_BROADCAST_FRAMES_XMIT_SUPPORTED,
-    NET_ADAPTER_STATISTICS_DIRECTED_BYTES_RCV = NDIS_STATISTICS_DIRECTED_BYTES_RCV_SUPPORTED,
-    NET_ADAPTER_STATISTICS_DIRECTED_FRAMES_RCV = NDIS_STATISTICS_DIRECTED_FRAMES_RCV_SUPPORTED,
-    NET_ADAPTER_STATISTICS_MULTICAST_BYTES_RCV = NDIS_STATISTICS_MULTICAST_BYTES_RCV_SUPPORTED,
-    NET_ADAPTER_STATISTICS_MULTICAST_FRAMES_RCV = NDIS_STATISTICS_MULTICAST_FRAMES_RCV_SUPPORTED,
-    NET_ADAPTER_STATISTICS_BROADCAST_BYTES_RCV = NDIS_STATISTICS_BROADCAST_BYTES_RCV_SUPPORTED,
-    NET_ADAPTER_STATISTICS_BROADCAST_FRAMES_RCV = NDIS_STATISTICS_BROADCAST_FRAMES_RCV_SUPPORTED,
-    NET_ADAPTER_STATISTICS_RCV_CRC_ERROR = NDIS_STATISTICS_RCV_CRC_ERROR_SUPPORTED,
-    NET_ADAPTER_STATISTICS_TRANSMIT_QUEUE_LENGTH = NDIS_STATISTICS_TRANSMIT_QUEUE_LENGTH_SUPPORTED,
-    NET_ADAPTER_STATISTICS_BYTES_RCV = NDIS_STATISTICS_BYTES_RCV_SUPPORTED,
-    NET_ADAPTER_STATISTICS_BYTES_XMIT = NDIS_STATISTICS_BYTES_XMIT_SUPPORTED,
-    NET_ADAPTER_STATISTICS_RCV_DISCARDS = NDIS_STATISTICS_RCV_DISCARDS_SUPPORTED,
-    NET_ADAPTER_STATISTICS_GEN_STATISTICS = NDIS_STATISTICS_GEN_STATISTICS_SUPPORTED,
-    NET_ADAPTER_STATISTICS_XMIT_DISCARDS = NDIS_STATISTICS_XMIT_DISCARDS_SUPPORTED,
-} NET_ADAPTER_STATISTICS_FLAGS;
-
-typedef enum _NET_ADAPTER_POWER_FLAGS {
-    NET_ADAPTER_POWER_WAKE_PACKET_INDICATION = NDIS_PM_WAKE_PACKET_INDICATION_SUPPORTED,
-    NET_ADAPTER_POWER_SELECTIVE_SUSPEND = NDIS_PM_SELECTIVE_SUSPEND_SUPPORTED,
-} NET_ADAPTER_POWER_FLAGS;
-
-typedef enum _NET_ADAPTER_WAKE_PATTERN_FLAGS {
-    NET_ADAPTER_WAKE_BITMAP_PATTERN = NDIS_PM_WOL_BITMAP_PATTERN_ENABLED,
-    NET_ADAPTER_WAKE_MAGIC_PACKET = NDIS_PM_WOL_MAGIC_PACKET_ENABLED,
-    NET_ADAPTER_WAKE_IPV4_TCP_SYN = NDIS_PM_WOL_IPV4_TCP_SYN_ENABLED,
-    NET_ADAPTER_WAKE_IPV6_TCP_SYN = NDIS_PM_WOL_IPV6_TCP_SYN_ENABLED,
-    NET_ADAPTER_WAKE_IPV4_DEST_ADDR_WILDCARD = NDIS_PM_WOL_IPV4_DEST_ADDR_WILDCARD_ENABLED,
-    NET_ADAPTER_WAKE_IPV6_DEST_ADDR_WILDCARD = NDIS_PM_WOL_IPV6_DEST_ADDR_WILDCARD_ENABLED,
-    NET_ADAPTER_WAKE_EAPOL_REQUEST_ID_MESSAGE = NDIS_PM_WOL_EAPOL_REQUEST_ID_MESSAGE_ENABLED,
-} NET_ADAPTER_WAKE_PATTERN_FLAGS;
-
-typedef enum _NET_ADAPTER_PROTOCOL_OFFLOADS_FLAGS {
-    NET_ADAPTER_PROTOCOL_OFFLOAD_ARP = NDIS_PM_PROTOCOL_OFFLOAD_ARP_ENABLED,
-    NET_ADAPTER_PROTOCOL_OFFLOAD_NS = NDIS_PM_PROTOCOL_OFFLOAD_NS_ENABLED,
-    NET_ADAPTER_PROTOCOL_OFFLOAD_80211_RSN_REKEY = NDIS_PM_PROTOCOL_OFFLOAD_80211_RSN_REKEY_ENABLED,
-} NET_ADAPTER_PROTOCOL_OFFLOADS_FLAGS;
-
-typedef enum _NET_ADAPTER_WAKEUP_EVENTS_FLAGS {
-    NET_ADAPTER_WAKE_ON_MEDIA_CONNECT = NDIS_PM_WAKE_ON_MEDIA_CONNECT_SUPPORTED,
-    NET_ADAPTER_WAKE_ON_MEDIA_DISCONNECT = NDIS_PM_WAKE_ON_MEDIA_DISCONNECT_SUPPORTED,
-} NET_ADAPTER_WAKEUP_EVENTS_FLAGS;
-
-typedef enum _NET_ADAPTER_MEDIA_SPECIFIC_WAKEUP_EVENTS_FLAGS {
-    NET_ADAPTER_WLAN_WAKE_ON_NLO_DISCOVERY = NDIS_WLAN_WAKE_ON_NLO_DISCOVERY_SUPPORTED,
-    NET_ADAPTER_WLAN_WAKE_ON_AP_ASSOCIATION_LOST = NDIS_WLAN_WAKE_ON_AP_ASSOCIATION_LOST_SUPPORTED,
-    NET_ADAPTER_WLAN_WAKE_ON_GTK_HANDSHAKE_ERROR = NDIS_WLAN_WAKE_ON_GTK_HANDSHAKE_ERROR_SUPPORTED,
-    NET_ADAPTER_WLAN_WAKE_ON_4WAY_HANDSHAKE_REQUEST = NDIS_WLAN_WAKE_ON_4WAY_HANDSHAKE_REQUEST_SUPPORTED,
-    NET_ADAPTER_WWAN_WAKE_ON_REGISTER_STATE = NDIS_WWAN_WAKE_ON_REGISTER_STATE_SUPPORTED,
-    NET_ADAPTER_WWAN_WAKE_ON_SMS_RECEIVE = NDIS_WWAN_WAKE_ON_SMS_RECEIVE_SUPPORTED,
-    NET_ADAPTER_WWAN_WAKE_ON_USSD_RECEIVE = NDIS_WWAN_WAKE_ON_USSD_RECEIVE_SUPPORTED,
-    NET_ADAPTER_WWAN_WAKE_ON_PACKET_STATE = NDIS_WWAN_WAKE_ON_PACKET_STATE_SUPPORTED,
-    NET_ADAPTER_WWAN_WAKE_ON_UICC_CHANGE = NDIS_WWAN_WAKE_ON_UICC_CHANGE_SUPPORTED,
-} NET_ADAPTER_MEDIA_SPECIFIC_WAKEUP_EVENTS_FLAGS;
-
-typedef enum _NET_ADAPTER_PAUSE_FUNCTIONS {
-    NetAdapterPauseFunctionsUnsupported = NdisPauseFunctionsUnsupported,
-    NetAdapterPauseFunctionsSendOnly = NdisPauseFunctionsSendOnly,
-    NetAdapterPauseFunctionsReceiveOnly = NdisPauseFunctionsReceiveOnly,
-    NetAdapterPauseFunctionsSendAndReceive = NdisPauseFunctionsSendAndReceive,
-    NetAdapterPauseFunctionsUnknown = NdisPauseFunctionsUnknown,
-} NET_ADAPTER_PAUSE_FUNCTIONS;
+typedef enum _NET_ADAPTER_PAUSE_FUNCTION_TYPE {
+    NetAdapterPauseFunctionTypeUnsupported = NdisPauseFunctionsUnsupported,
+    NetAdapterPauseFunctionTypeSendOnly = NdisPauseFunctionsSendOnly,
+    NetAdapterPauseFunctionTypeReceiveOnly = NdisPauseFunctionsReceiveOnly,
+    NetAdapterPauseFunctionTypeSendAndReceive = NdisPauseFunctionsSendAndReceive,
+    NetAdapterPauseFunctionTypeUnknown = NdisPauseFunctionsUnknown,
+} NET_ADAPTER_PAUSE_FUNCTION_TYPE;
 
 typedef enum _NET_ADAPTER_AUTO_NEGOTIATION_FLAGS {
-    NET_ADAPTER_AUTO_NEGOTIATION_NO_FLAGS = 0,
-    NET_ADAPTER_LINK_STATE_XMIT_LINK_SPEED_AUTO_NEGOTIATED = NDIS_LINK_STATE_XMIT_LINK_SPEED_AUTO_NEGOTIATED,
-    NET_ADAPTER_LINK_STATE_RCV_LINK_SPEED_AUTO_NEGOTIATED = NDIS_LINK_STATE_RCV_LINK_SPEED_AUTO_NEGOTIATED,
-    NET_ADAPTER_LINK_STATE_DUPLEX_AUTO_NEGOTIATED = NDIS_LINK_STATE_DUPLEX_AUTO_NEGOTIATED,
-    NET_ADAPTER_LINK_STATE_PAUSE_FUNCTIONS_AUTO_NEGOTIATED = NDIS_LINK_STATE_PAUSE_FUNCTIONS_AUTO_NEGOTIATED,
+    NetAdapterAutoNegotiationFlagNone = 0,
+    NetAdapterAutoNegotiationFlagXmitLinkSpeedAutoNegotiated = NDIS_LINK_STATE_XMIT_LINK_SPEED_AUTO_NEGOTIATED,
+    NetAdapterAutoNegotiationFlagRcvLinkSpeedautoNegotiated = NDIS_LINK_STATE_RCV_LINK_SPEED_AUTO_NEGOTIATED,
+    NetAdapterAutoNegotiationFlagDuplexAutoNegotiated = NDIS_LINK_STATE_DUPLEX_AUTO_NEGOTIATED,
+    NetAdapterAutoNegotiationFlagPauseFunctionsAutoNegotiated = NDIS_LINK_STATE_PAUSE_FUNCTIONS_AUTO_NEGOTIATED,
 } NET_ADAPTER_AUTO_NEGOTIATION_FLAGS;
 
 typedef enum _NET_MEMORY_MAPPING_REQUIREMENT {
@@ -127,14 +49,10 @@ typedef enum _NET_MEMORY_MAPPING_REQUIREMENT {
 
 #include <NetReceiveScaling.h>
 
-DEFINE_ENUM_FLAG_OPERATORS(NET_PACKET_FILTER_TYPES_FLAGS);
-DEFINE_ENUM_FLAG_OPERATORS(NET_ADAPTER_STATISTICS_FLAGS);
-DEFINE_ENUM_FLAG_OPERATORS(NET_ADAPTER_POWER_FLAGS);
-DEFINE_ENUM_FLAG_OPERATORS(NET_ADAPTER_WAKE_PATTERN_FLAGS);
-DEFINE_ENUM_FLAG_OPERATORS(NET_ADAPTER_PROTOCOL_OFFLOADS_FLAGS);
-DEFINE_ENUM_FLAG_OPERATORS(NET_ADAPTER_WAKEUP_EVENTS_FLAGS);
-DEFINE_ENUM_FLAG_OPERATORS(NET_ADAPTER_MEDIA_SPECIFIC_WAKEUP_EVENTS_FLAGS);
-DEFINE_ENUM_FLAG_OPERATORS(NET_ADAPTER_PAUSE_FUNCTIONS);
+
+#include <net/returncontexttypes.h>
+
+DEFINE_ENUM_FLAG_OPERATORS(NET_ADAPTER_PAUSE_FUNCTION_TYPE);
 DEFINE_ENUM_FLAG_OPERATORS(NET_ADAPTER_AUTO_NEGOTIATION_FLAGS);
 
 typedef
@@ -142,6 +60,7 @@ _Function_class_(EVT_NET_ADAPTER_CREATE_TXQUEUE)
 _IRQL_requires_same_
 _IRQL_requires_max_(PASSIVE_LEVEL)
 NTSTATUS
+NTAPI
 EVT_NET_ADAPTER_CREATE_TXQUEUE(
     _In_
     NETADAPTER Adapter,
@@ -156,6 +75,7 @@ _Function_class_(EVT_NET_ADAPTER_CREATE_RXQUEUE)
 _IRQL_requires_same_
 _IRQL_requires_max_(PASSIVE_LEVEL)
 NTSTATUS
+NTAPI
 EVT_NET_ADAPTER_CREATE_RXQUEUE(
     _In_
     NETADAPTER Adapter,
@@ -192,9 +112,6 @@ typedef struct _NET_ADAPTER_LINK_LAYER_CAPABILITIES {
     // Size of structure.
     //
     ULONG                           Size;
-    NET_PACKET_FILTER_TYPES_FLAGS   SupportedPacketFilters;
-    ULONG                           MaxMulticastListSize;
-    NET_ADAPTER_STATISTICS_FLAGS    SupportedStatistics;
     ULONG64                         MaxTxLinkSpeed;
     ULONG64                         MaxRxLinkSpeed;
 } NET_ADAPTER_LINK_LAYER_CAPABILITIES;
@@ -203,57 +120,15 @@ inline
 void
 NET_ADAPTER_LINK_LAYER_CAPABILITIES_INIT(
     _Out_ NET_ADAPTER_LINK_LAYER_CAPABILITIES * LinkLayerCapabilities,
-    _In_  NET_PACKET_FILTER_TYPES_FLAGS  SupportedPacketFilters,
-    _In_  ULONG                          MaxMulticastListSize,
-    _In_  NET_ADAPTER_STATISTICS_FLAGS   SupportedStatistics,
     _In_  ULONG64                        MaxTxLinkSpeed,
     _In_  ULONG64                        MaxRxLinkSpeed
 )
 {
     RtlZeroMemory(LinkLayerCapabilities, sizeof(NET_ADAPTER_LINK_LAYER_CAPABILITIES));
     LinkLayerCapabilities->Size = sizeof(NET_ADAPTER_LINK_LAYER_CAPABILITIES);
-    LinkLayerCapabilities->SupportedPacketFilters = SupportedPacketFilters;
-    LinkLayerCapabilities->MaxMulticastListSize = MaxMulticastListSize;
-    LinkLayerCapabilities->SupportedStatistics = SupportedStatistics;
     LinkLayerCapabilities->MaxTxLinkSpeed = MaxTxLinkSpeed;
     LinkLayerCapabilities->MaxRxLinkSpeed = MaxRxLinkSpeed;
 }
-
-typedef
-_Function_class_(EVT_NET_ADAPTER_PREVIEW_WAKE_PATTERN)
-_IRQL_requires_same_
-_IRQL_requires_max_(PASSIVE_LEVEL)
-NTSTATUS
-EVT_NET_ADAPTER_PREVIEW_WAKE_PATTERN(
-    _In_
-    NETADAPTER Adapter,
-    _In_
-    NETPOWERSETTINGS ExistingPowerSettings,
-    _In_
-    NDIS_PM_WOL_PACKET WakePatternType,
-    _In_
-    PNDIS_PM_WOL_PATTERN PatternToBeAdded
-);
-
-typedef EVT_NET_ADAPTER_PREVIEW_WAKE_PATTERN *PFN_NET_ADAPTER_PREVIEW_WAKE_PATTERN;
-
-typedef
-_Function_class_(EVT_NET_ADAPTER_PREVIEW_PROTOCOL_OFFLOAD)
-_IRQL_requires_same_
-_IRQL_requires_max_(PASSIVE_LEVEL)
-NTSTATUS
-EVT_NET_ADAPTER_PREVIEW_PROTOCOL_OFFLOAD(
-    _In_
-    NETADAPTER Adapter,
-    _In_
-    NETPOWERSETTINGS ExistingPowerSettings,
-    _In_
-    NDIS_PM_PROTOCOL_OFFLOAD_TYPE ProtocolOffloadType,
-    _In_
-    PNDIS_PM_PROTOCOL_OFFLOAD ProtocolOffloadToBeAdded
-);
-
-typedef EVT_NET_ADAPTER_PREVIEW_PROTOCOL_OFFLOAD *PFN_NET_ADAPTER_PREVIEW_PROTOCOL_OFFLOAD;
 
 typedef
 _Function_class_(EVT_NET_ADAPTER_RETURN_RX_BUFFER)
@@ -261,47 +136,121 @@ _IRQL_requires_same_
 _IRQL_requires_min_(PASSIVE_LEVEL)
 _IRQL_requires_max_(DISPATCH_LEVEL)
 void
+NTAPI
 EVT_NET_ADAPTER_RETURN_RX_BUFFER(
     _In_
     NETADAPTER Adapter,
     _In_
-    void * RxBufferVirtualAddress,
-    _In_
-    void * RxBufferReturnContext
+    NET_FRAGMENT_RETURN_CONTEXT_HANDLE RxReturnContext
 );
 
 typedef EVT_NET_ADAPTER_RETURN_RX_BUFFER *PFN_NET_ADAPTER_RETURN_RX_BUFFER;
 
-typedef struct _NET_ADAPTER_POWER_CAPABILITIES {
-    //
-    // Size of structure.
-    //
+typedef struct _NET_ADAPTER_POWER_OFFLOAD_ARP_CAPABILITIES
+{
     ULONG Size;
-    NET_ADAPTER_POWER_FLAGS                        Flags;
-    NET_ADAPTER_WAKE_PATTERN_FLAGS                 SupportedWakePatterns;
-    ULONG                                          NumTotalWakePatterns;
-    ULONG                                          MaxWakePatternSize;
-    ULONG                                          MaxWakePatternOffset;
-    ULONG                                          MaxWakePacketSaveBuffer;
-    NET_ADAPTER_PROTOCOL_OFFLOADS_FLAGS            SupportedProtocolOffloads;
-    ULONG                                          NumArpOffloadIPv4Addresses;
-    ULONG                                          NumNSOffloadIPv6Addresses;
-    NET_ADAPTER_WAKEUP_EVENTS_FLAGS                SupportedWakeUpEvents;
-    NET_ADAPTER_MEDIA_SPECIFIC_WAKEUP_EVENTS_FLAGS SupportedMediaSpecificWakeUpEvents;
-    PFN_NET_ADAPTER_PREVIEW_WAKE_PATTERN           EvtAdapterPreviewWakePattern;
-    PFN_NET_ADAPTER_PREVIEW_PROTOCOL_OFFLOAD       EvtAdapterPreviewProtocolOffload;
-    WDF_TRI_STATE                                  ManageS0IdlePowerReferences;
-} NET_ADAPTER_POWER_CAPABILITIES;
+    BOOLEAN ArpOffload;
+    SIZE_T MaximumOffloadCount;
+} NET_ADAPTER_POWER_OFFLOAD_ARP_CAPABILITIES;
 
 inline
 void
-NET_ADAPTER_POWER_CAPABILITIES_INIT(
-    _Out_ NET_ADAPTER_POWER_CAPABILITIES *               PowerCapabilities
+NET_ADAPTER_POWER_OFFLOAD_ARP_CAPABILITIES_INIT(
+    _Out_ NET_ADAPTER_POWER_OFFLOAD_ARP_CAPABILITIES * Capabilities,
+    _In_ SIZE_T MaximumOffloadCount
 )
 {
-    RtlZeroMemory(PowerCapabilities, sizeof(NET_ADAPTER_POWER_CAPABILITIES));
-    PowerCapabilities->Size = sizeof(NET_ADAPTER_POWER_CAPABILITIES);
-    PowerCapabilities->ManageS0IdlePowerReferences = WdfUseDefault;
+    RtlZeroMemory(Capabilities, sizeof(*Capabilities));
+    Capabilities->Size = sizeof(*Capabilities);
+    Capabilities->ArpOffload = TRUE;
+    Capabilities->MaximumOffloadCount = MaximumOffloadCount;
+}
+
+typedef struct _NET_ADAPTER_POWER_OFFLOAD_NS_CAPABILITIES
+{
+    ULONG Size;
+    BOOLEAN NSOffload;
+    SIZE_T MaximumOffloadCount;
+} NET_ADAPTER_POWER_OFFLOAD_NS_CAPABILITIES;
+
+inline
+void
+NET_ADAPTER_POWER_OFFLOAD_NS_CAPABILITIES_INIT(
+    _Out_ NET_ADAPTER_POWER_OFFLOAD_NS_CAPABILITIES * Capabilities,
+    _In_ SIZE_T MaximumOffloadCount
+)
+{
+    RtlZeroMemory(Capabilities, sizeof(*Capabilities));
+    Capabilities->Size = sizeof(*Capabilities);
+    Capabilities->NSOffload = TRUE;
+    Capabilities->MaximumOffloadCount = MaximumOffloadCount;
+}
+
+typedef struct _NET_ADAPTER_WAKE_BITMAP_CAPABILITIES
+{
+    ULONG Size;
+    BOOLEAN BitmapPattern;
+    SIZE_T MaximumPatternCount;
+    SIZE_T MaximumPatternSize;
+} NET_ADAPTER_WAKE_BITMAP_CAPABILITIES;
+
+inline
+void
+NET_ADAPTER_WAKE_BITMAP_CAPABILITIES_INIT(
+    _Out_ NET_ADAPTER_WAKE_BITMAP_CAPABILITIES * Capabilities
+)
+{
+    RtlZeroMemory(Capabilities, sizeof(*Capabilities));
+    Capabilities->Size = sizeof(*Capabilities);
+}
+
+typedef struct _NET_ADAPTER_WAKE_MEDIA_CHANGE_CAPABILITIES
+{
+    ULONG Size;
+    BOOLEAN MediaConnect;
+    BOOLEAN MediaDisconnect;
+} NET_ADAPTER_WAKE_MEDIA_CHANGE_CAPABILITIES;
+
+inline
+void
+NET_ADAPTER_WAKE_MEDIA_CHANGE_CAPABILITIES_INIT(
+    _Out_ NET_ADAPTER_WAKE_MEDIA_CHANGE_CAPABILITIES * Capabilities
+)
+{
+    RtlZeroMemory(Capabilities, sizeof(*Capabilities));
+    Capabilities->Size = sizeof(*Capabilities);
+}
+
+typedef struct _NET_ADAPTER_WAKE_MAGIC_PACKET_CAPABILITIES
+{
+    ULONG Size;
+    BOOLEAN MagicPacket;
+} NET_ADAPTER_WAKE_MAGIC_PACKET_CAPABILITIES;
+
+inline
+void
+NET_ADAPTER_WAKE_MAGIC_PACKET_CAPABILITIES_INIT(
+    _Out_ NET_ADAPTER_WAKE_MAGIC_PACKET_CAPABILITIES * Capabilities
+)
+{
+    RtlZeroMemory(Capabilities, sizeof(*Capabilities));
+    Capabilities->Size = sizeof(*Capabilities);
+}
+
+typedef struct _NET_ADAPTER_WAKE_PACKET_FILTER_CAPABILITIES
+{
+    ULONG Size;
+    BOOLEAN PacketFilterMatch;
+} NET_ADAPTER_WAKE_PACKET_FILTER_CAPABILITIES;
+
+inline
+void
+NET_ADAPTER_WAKE_PACKET_FILTER_CAPABILITIES_INIT(
+    _Out_ NET_ADAPTER_WAKE_PACKET_FILTER_CAPABILITIES * Capabilities
+)
+{
+    RtlZeroMemory(Capabilities, sizeof(*Capabilities));
+    Capabilities->Size = sizeof(*Capabilities);
 }
 
 #define NET_ADAPTER_FRAGMENT_DEFAULT_ALIGNMENT 1 //byte aligned
@@ -537,13 +486,6 @@ typedef struct _NET_ADAPTER_TX_CAPABILITIES
     NET_MEMORY_MAPPING_REQUIREMENT MappingRequirement;
 
     //
-    // Maximum frame size in bytes the adapter can process
-    // in the data buffers during transmit. Can be different
-    // from the maximum size of frame on the wire
-    //
-    SIZE_T MaximumFrameSize;
-
-    //
     // Amount of space in bytes reserved for the client driver before the start
     // of a NET_PACKET's payload
     //
@@ -586,14 +528,12 @@ inline
 void
 NET_ADAPTER_TX_CAPABILITIES_INIT(
     _Out_ NET_ADAPTER_TX_CAPABILITIES * TxCapabilities,
-    _In_ SIZE_T MaximumFrameSize,
     _In_ SIZE_T MaximumNumberOfQueues
 )
 {
     RtlZeroMemory(TxCapabilities, sizeof(NET_ADAPTER_TX_CAPABILITIES));
     TxCapabilities->Size = sizeof(NET_ADAPTER_TX_CAPABILITIES);
     TxCapabilities->FragmentBufferAlignment = NET_ADAPTER_FRAGMENT_DEFAULT_ALIGNMENT;
-    TxCapabilities->MaximumFrameSize = MaximumFrameSize;
     TxCapabilities->MaximumNumberOfQueues = MaximumNumberOfQueues;
     TxCapabilities->MaximumNumberOfFragments = (SIZE_T)-1;
 }
@@ -603,13 +543,11 @@ void
 NET_ADAPTER_TX_CAPABILITIES_INIT_FOR_DMA(
     _Out_ NET_ADAPTER_TX_CAPABILITIES * TxCapabilities,
     _In_ NET_ADAPTER_DMA_CAPABILITIES * DmaCapabilities,
-    _In_ SIZE_T MaximumFrameSize,
     _In_ SIZE_T MaximumNumberOfQueues
 )
 {
     NET_ADAPTER_TX_CAPABILITIES_INIT(
         TxCapabilities,
-        MaximumFrameSize,
         MaximumNumberOfQueues);
 
     TxCapabilities->DmaCapabilities = DmaCapabilities;
@@ -642,7 +580,7 @@ typedef struct _NET_ADAPTER_LINK_STATE {
     //
     // Supported pause functions by the adapter
     //
-    NET_ADAPTER_PAUSE_FUNCTIONS          SupportedPauseFunctions;
+    NET_ADAPTER_PAUSE_FUNCTION_TYPE          SupportedPauseFunctions;
 
     //
     // Flags representing the auto-negotiation settings of the adapter
@@ -658,7 +596,7 @@ NET_ADAPTER_LINK_STATE_INIT(
     _In_  ULONG64                              LinkSpeed,
     _In_  NET_IF_MEDIA_CONNECT_STATE           MediaConnectState,
     _In_  NET_IF_MEDIA_DUPLEX_STATE            MediaDuplexState,
-    _In_  NET_ADAPTER_PAUSE_FUNCTIONS          SupportedPauseFunctions,
+    _In_  NET_ADAPTER_PAUSE_FUNCTION_TYPE          SupportedPauseFunctions,
     _In_  NET_ADAPTER_AUTO_NEGOTIATION_FLAGS   AutoNegotiationFlags
 )
 {
@@ -686,8 +624,7 @@ NET_ADAPTER_LINK_STATE_INIT_DISCONNECTED(
     LinkState->TxLinkSpeed = NDIS_LINK_SPEED_UNKNOWN;
     LinkState->RxLinkSpeed = NDIS_LINK_SPEED_UNKNOWN;
     LinkState->MediaDuplexState = MediaDuplexStateUnknown;
-    LinkState->SupportedPauseFunctions = NetAdapterPauseFunctionsUnknown;
-    LinkState->AutoNegotiationFlags = NET_ADAPTER_AUTO_NEGOTIATION_NO_FLAGS;
+    LinkState->SupportedPauseFunctions = NetAdapterPauseFunctionTypeUnsupported;
 }
 
 typedef struct _NET_ADAPTER_DATAPATH_CALLBACKS {
@@ -721,6 +658,7 @@ _Function_class_(EVT_NET_ADAPTER_OFFLOAD_SET_CHECKSUM)
 _IRQL_requires_same_
 _IRQL_requires_max_(PASSIVE_LEVEL)
 void
+NTAPI
 EVT_NET_ADAPTER_OFFLOAD_SET_CHECKSUM(
     _In_
     NETADAPTER Adapter,
@@ -776,6 +714,23 @@ NET_ADAPTER_OFFLOAD_CHECKSUM_CAPABILITIES_INIT(
     ChecksumCapabilities->EvtAdapterOffloadSetChecksum = EvtAdapterOffloadSetChecksum;
 }
 
+typedef struct _NET_ADAPTER_WAKE_REASON_PACKET
+{
+    ULONG Size;
+    ULONG PatternId;
+    ULONG OriginalPacketSize;
+    WDFMEMORY WakePacket;
+} NET_ADAPTER_WAKE_REASON_PACKET;
+
+inline
+void
+NET_ADAPTER_WAKE_REASON_PACKET_INIT(
+    _Out_ NET_ADAPTER_WAKE_REASON_PACKET * Reason
+)
+{
+    RtlZeroMemory(Reason, sizeof(*Reason));
+    Reason->Size = sizeof(*Reason);
+}
 
 //
 // NET Function: NetAdapterInitAllocate
@@ -784,7 +739,7 @@ typedef
 _IRQL_requires_max_(PASSIVE_LEVEL)
 WDFAPI
 NETADAPTER_INIT *
-(*PFN_NETADAPTERINITALLOCATE)(
+(NTAPI *PFN_NETADAPTERINITALLOCATE)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -809,7 +764,7 @@ typedef
 _IRQL_requires_max_(PASSIVE_LEVEL)
 WDFAPI
 void
-(*PFN_NETADAPTERINITFREE)(
+(NTAPI *PFN_NETADAPTERINITFREE)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -834,7 +789,7 @@ typedef
 _IRQL_requires_max_(PASSIVE_LEVEL)
 WDFAPI
 void
-(*PFN_NETADAPTERINITSETDATAPATHCALLBACKS)(
+(NTAPI *PFN_NETADAPTERINITSETDATAPATHCALLBACKS)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _Inout_
@@ -857,91 +812,6 @@ NetAdapterInitSetDatapathCallbacks(
 }
 
 //
-// NET Function: NetAdapterInitSetNetRequestAttributes
-//
-typedef
-_IRQL_requires_max_(PASSIVE_LEVEL)
-WDFAPI
-void
-(*PFN_NETADAPTERINITSETNETREQUESTATTRIBUTES)(
-    _In_
-    PNET_DRIVER_GLOBALS DriverGlobals,
-    _Inout_
-    NETADAPTER_INIT* AdapterInit,
-    _In_
-    WDF_OBJECT_ATTRIBUTES* NetRequestAttributes
-    );
-
-_IRQL_requires_max_(PASSIVE_LEVEL)
-FORCEINLINE
-void
-NetAdapterInitSetNetRequestAttributes(
-    _Inout_
-    NETADAPTER_INIT* AdapterInit,
-    _In_
-    WDF_OBJECT_ATTRIBUTES* NetRequestAttributes
-    )
-{
-    ((PFN_NETADAPTERINITSETNETREQUESTATTRIBUTES) NetFunctions[NetAdapterInitSetNetRequestAttributesTableIndex])(NetDriverGlobals, AdapterInit, NetRequestAttributes);
-}
-
-//
-// NET Function: NetAdapterInitSetNetPowerSettingsAttributes
-//
-typedef
-_IRQL_requires_max_(PASSIVE_LEVEL)
-WDFAPI
-void
-(*PFN_NETADAPTERINITSETNETPOWERSETTINGSATTRIBUTES)(
-    _In_
-    PNET_DRIVER_GLOBALS DriverGlobals,
-    _Inout_
-    NETADAPTER_INIT* AdapterInit,
-    _In_
-    WDF_OBJECT_ATTRIBUTES* NetPowerSettingsAttributes
-    );
-
-_IRQL_requires_max_(PASSIVE_LEVEL)
-FORCEINLINE
-void
-NetAdapterInitSetNetPowerSettingsAttributes(
-    _Inout_
-    NETADAPTER_INIT* AdapterInit,
-    _In_
-    WDF_OBJECT_ATTRIBUTES* NetPowerSettingsAttributes
-    )
-{
-    ((PFN_NETADAPTERINITSETNETPOWERSETTINGSATTRIBUTES) NetFunctions[NetAdapterInitSetNetPowerSettingsAttributesTableIndex])(NetDriverGlobals, AdapterInit, NetPowerSettingsAttributes);
-}
-
-//
-// NET Function: NetAdapterDeviceInitConfig
-//
-typedef
-_Must_inspect_result_
-_IRQL_requires_max_(PASSIVE_LEVEL)
-WDFAPI
-NTSTATUS
-(*PFN_NETADAPTERDEVICEINITCONFIG)(
-    _In_
-    PNET_DRIVER_GLOBALS DriverGlobals,
-    _Inout_
-    PWDFDEVICE_INIT DeviceInit
-    );
-
-_Must_inspect_result_
-_IRQL_requires_max_(PASSIVE_LEVEL)
-FORCEINLINE
-NTSTATUS
-NetAdapterDeviceInitConfig(
-    _Inout_
-    PWDFDEVICE_INIT DeviceInit
-    )
-{
-    return ((PFN_NETADAPTERDEVICEINITCONFIG) NetFunctions[NetAdapterDeviceInitConfigTableIndex])(NetDriverGlobals, DeviceInit);
-}
-
-//
 // NET Function: NetAdapterCreate
 //
 typedef
@@ -949,7 +819,7 @@ _Must_inspect_result_
 _IRQL_requires_max_(PASSIVE_LEVEL)
 WDFAPI
 NTSTATUS
-(*PFN_NETADAPTERCREATE)(
+(NTAPI *PFN_NETADAPTERCREATE)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -984,7 +854,7 @@ _Must_inspect_result_
 _IRQL_requires_max_(PASSIVE_LEVEL)
 WDFAPI
 NTSTATUS
-(*PFN_NETADAPTERSTART)(
+(NTAPI *PFN_NETADAPTERSTART)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -1010,7 +880,7 @@ typedef
 _IRQL_requires_max_(PASSIVE_LEVEL)
 WDFAPI
 void
-(*PFN_NETADAPTERSTOP)(
+(NTAPI *PFN_NETADAPTERSTOP)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -1035,7 +905,7 @@ typedef
 _IRQL_requires_(PASSIVE_LEVEL)
 WDFAPI
 void
-(*PFN_NETADAPTERSETLINKLAYERCAPABILITIES)(
+(NTAPI *PFN_NETADAPTERSETLINKLAYERCAPABILITIES)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -1064,7 +934,7 @@ typedef
 _IRQL_requires_(PASSIVE_LEVEL)
 WDFAPI
 void
-(*PFN_NETADAPTERSETLINKLAYERMTUSIZE)(
+(NTAPI *PFN_NETADAPTERSETLINKLAYERMTUSIZE)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -1087,32 +957,177 @@ NetAdapterSetLinkLayerMtuSize(
 }
 
 //
-// NET Function: NetAdapterSetPowerCapabilities
+// NET Function: NetAdapterPowerOffloadSetArpCapabilities
 //
 typedef
 _IRQL_requires_(PASSIVE_LEVEL)
 WDFAPI
 void
-(*PFN_NETADAPTERSETPOWERCAPABILITIES)(
+(NTAPI *PFN_NETADAPTERPOWEROFFLOADSETARPCAPABILITIES)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
     NETADAPTER Adapter,
     _In_
-    NET_ADAPTER_POWER_CAPABILITIES* PowerCapabilities
+    CONST NET_ADAPTER_POWER_OFFLOAD_ARP_CAPABILITIES* Capabilities
     );
 
 _IRQL_requires_(PASSIVE_LEVEL)
 FORCEINLINE
 void
-NetAdapterSetPowerCapabilities(
+NetAdapterPowerOffloadSetArpCapabilities(
     _In_
     NETADAPTER Adapter,
     _In_
-    NET_ADAPTER_POWER_CAPABILITIES* PowerCapabilities
+    CONST NET_ADAPTER_POWER_OFFLOAD_ARP_CAPABILITIES* Capabilities
     )
 {
-    ((PFN_NETADAPTERSETPOWERCAPABILITIES) NetFunctions[NetAdapterSetPowerCapabilitiesTableIndex])(NetDriverGlobals, Adapter, PowerCapabilities);
+    ((PFN_NETADAPTERPOWEROFFLOADSETARPCAPABILITIES) NetFunctions[NetAdapterPowerOffloadSetArpCapabilitiesTableIndex])(NetDriverGlobals, Adapter, Capabilities);
+}
+
+//
+// NET Function: NetAdapterPowerOffloadSetNSCapabilities
+//
+typedef
+_IRQL_requires_(PASSIVE_LEVEL)
+WDFAPI
+void
+(NTAPI *PFN_NETADAPTERPOWEROFFLOADSETNSCAPABILITIES)(
+    _In_
+    PNET_DRIVER_GLOBALS DriverGlobals,
+    _In_
+    NETADAPTER Adapter,
+    _In_
+    CONST NET_ADAPTER_POWER_OFFLOAD_NS_CAPABILITIES* Capabilities
+    );
+
+_IRQL_requires_(PASSIVE_LEVEL)
+FORCEINLINE
+void
+NetAdapterPowerOffloadSetNSCapabilities(
+    _In_
+    NETADAPTER Adapter,
+    _In_
+    CONST NET_ADAPTER_POWER_OFFLOAD_NS_CAPABILITIES* Capabilities
+    )
+{
+    ((PFN_NETADAPTERPOWEROFFLOADSETNSCAPABILITIES) NetFunctions[NetAdapterPowerOffloadSetNSCapabilitiesTableIndex])(NetDriverGlobals, Adapter, Capabilities);
+}
+
+//
+// NET Function: NetAdapterWakeSetBitmapCapabilities
+//
+typedef
+_IRQL_requires_(PASSIVE_LEVEL)
+WDFAPI
+void
+(NTAPI *PFN_NETADAPTERWAKESETBITMAPCAPABILITIES)(
+    _In_
+    PNET_DRIVER_GLOBALS DriverGlobals,
+    _In_
+    NETADAPTER Adapter,
+    _In_
+    CONST NET_ADAPTER_WAKE_BITMAP_CAPABILITIES* Capabilities
+    );
+
+_IRQL_requires_(PASSIVE_LEVEL)
+FORCEINLINE
+void
+NetAdapterWakeSetBitmapCapabilities(
+    _In_
+    NETADAPTER Adapter,
+    _In_
+    CONST NET_ADAPTER_WAKE_BITMAP_CAPABILITIES* Capabilities
+    )
+{
+    ((PFN_NETADAPTERWAKESETBITMAPCAPABILITIES) NetFunctions[NetAdapterWakeSetBitmapCapabilitiesTableIndex])(NetDriverGlobals, Adapter, Capabilities);
+}
+
+//
+// NET Function: NetAdapterWakeSetMediaChangeCapabilities
+//
+typedef
+_IRQL_requires_(PASSIVE_LEVEL)
+WDFAPI
+void
+(NTAPI *PFN_NETADAPTERWAKESETMEDIACHANGECAPABILITIES)(
+    _In_
+    PNET_DRIVER_GLOBALS DriverGlobals,
+    _In_
+    NETADAPTER Adapter,
+    _In_
+    CONST NET_ADAPTER_WAKE_MEDIA_CHANGE_CAPABILITIES* Capabilities
+    );
+
+_IRQL_requires_(PASSIVE_LEVEL)
+FORCEINLINE
+void
+NetAdapterWakeSetMediaChangeCapabilities(
+    _In_
+    NETADAPTER Adapter,
+    _In_
+    CONST NET_ADAPTER_WAKE_MEDIA_CHANGE_CAPABILITIES* Capabilities
+    )
+{
+    ((PFN_NETADAPTERWAKESETMEDIACHANGECAPABILITIES) NetFunctions[NetAdapterWakeSetMediaChangeCapabilitiesTableIndex])(NetDriverGlobals, Adapter, Capabilities);
+}
+
+//
+// NET Function: NetAdapterWakeSetMagicPacketCapabilities
+//
+typedef
+_IRQL_requires_(PASSIVE_LEVEL)
+WDFAPI
+void
+(NTAPI *PFN_NETADAPTERWAKESETMAGICPACKETCAPABILITIES)(
+    _In_
+    PNET_DRIVER_GLOBALS DriverGlobals,
+    _In_
+    NETADAPTER Adapter,
+    _In_
+    CONST NET_ADAPTER_WAKE_MAGIC_PACKET_CAPABILITIES* Capabilities
+    );
+
+_IRQL_requires_(PASSIVE_LEVEL)
+FORCEINLINE
+void
+NetAdapterWakeSetMagicPacketCapabilities(
+    _In_
+    NETADAPTER Adapter,
+    _In_
+    CONST NET_ADAPTER_WAKE_MAGIC_PACKET_CAPABILITIES* Capabilities
+    )
+{
+    ((PFN_NETADAPTERWAKESETMAGICPACKETCAPABILITIES) NetFunctions[NetAdapterWakeSetMagicPacketCapabilitiesTableIndex])(NetDriverGlobals, Adapter, Capabilities);
+}
+
+//
+// NET Function: NetAdapterWakeSetPacketFilterCapabilities
+//
+typedef
+_IRQL_requires_(PASSIVE_LEVEL)
+WDFAPI
+void
+(NTAPI *PFN_NETADAPTERWAKESETPACKETFILTERCAPABILITIES)(
+    _In_
+    PNET_DRIVER_GLOBALS DriverGlobals,
+    _In_
+    NETADAPTER Adapter,
+    _In_
+    CONST NET_ADAPTER_WAKE_PACKET_FILTER_CAPABILITIES* Capabilities
+    );
+
+_IRQL_requires_(PASSIVE_LEVEL)
+FORCEINLINE
+void
+NetAdapterWakeSetPacketFilterCapabilities(
+    _In_
+    NETADAPTER Adapter,
+    _In_
+    CONST NET_ADAPTER_WAKE_PACKET_FILTER_CAPABILITIES* Capabilities
+    )
+{
+    ((PFN_NETADAPTERWAKESETPACKETFILTERCAPABILITIES) NetFunctions[NetAdapterWakeSetPacketFilterCapabilitiesTableIndex])(NetDriverGlobals, Adapter, Capabilities);
 }
 
 //
@@ -1122,7 +1137,7 @@ typedef
 _IRQL_requires_(PASSIVE_LEVEL)
 WDFAPI
 void
-(*PFN_NETADAPTERSETDATAPATHCAPABILITIES)(
+(NTAPI *PFN_NETADAPTERSETDATAPATHCAPABILITIES)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -1155,7 +1170,7 @@ typedef
 _IRQL_requires_max_(DISPATCH_LEVEL)
 WDFAPI
 void
-(*PFN_NETADAPTERSETLINKSTATE)(
+(NTAPI *PFN_NETADAPTERSETLINKSTATE)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -1184,7 +1199,7 @@ typedef
 _IRQL_requires_(PASSIVE_LEVEL)
 WDFAPI
 NET_LUID
-(*PFN_NETADAPTERGETNETLUID)(
+(NTAPI *PFN_NETADAPTERGETNETLUID)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -1210,7 +1225,7 @@ _Must_inspect_result_
 _IRQL_requires_(PASSIVE_LEVEL)
 WDFAPI
 NTSTATUS
-(*PFN_NETADAPTEROPENCONFIGURATION)(
+(NTAPI *PFN_NETADAPTEROPENCONFIGURATION)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -1238,38 +1253,13 @@ NetAdapterOpenConfiguration(
 }
 
 //
-// NET Function: NetAdapterGetPowerSettings
-//
-typedef
-_IRQL_requires_max_(DISPATCH_LEVEL)
-WDFAPI
-NETPOWERSETTINGS
-(*PFN_NETADAPTERGETPOWERSETTINGS)(
-    _In_
-    PNET_DRIVER_GLOBALS DriverGlobals,
-    _In_
-    NETADAPTER Adapter
-    );
-
-_IRQL_requires_max_(DISPATCH_LEVEL)
-FORCEINLINE
-NETPOWERSETTINGS
-NetAdapterGetPowerSettings(
-    _In_
-    NETADAPTER Adapter
-    )
-{
-    return ((PFN_NETADAPTERGETPOWERSETTINGS) NetFunctions[NetAdapterGetPowerSettingsTableIndex])(NetDriverGlobals, Adapter);
-}
-
-//
 // NET Function: NetAdapterSetPermanentLinkLayerAddress
 //
 typedef
 _IRQL_requires_max_(PASSIVE_LEVEL)
 WDFAPI
 void
-(*PFN_NETADAPTERSETPERMANENTLINKLAYERADDRESS)(
+(NTAPI *PFN_NETADAPTERSETPERMANENTLINKLAYERADDRESS)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -1298,7 +1288,7 @@ typedef
 _IRQL_requires_max_(PASSIVE_LEVEL)
 WDFAPI
 void
-(*PFN_NETADAPTERSETCURRENTLINKLAYERADDRESS)(
+(NTAPI *PFN_NETADAPTERSETCURRENTLINKLAYERADDRESS)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -1327,7 +1317,7 @@ typedef
 _IRQL_requires_max_(PASSIVE_LEVEL)
 WDFAPI
 void
-(*PFN_NETADAPTEROFFLOADSETCHECKSUMCAPABILITIES)(
+(NTAPI *PFN_NETADAPTEROFFLOADSETCHECKSUMCAPABILITIES)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -1356,7 +1346,7 @@ typedef
 _IRQL_requires_max_(PASSIVE_LEVEL)
 WDFAPI
 BOOLEAN
-(*PFN_NETOFFLOADISCHECKSUMIPV4ENABLED)(
+(NTAPI *PFN_NETOFFLOADISCHECKSUMIPV4ENABLED)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -1381,7 +1371,7 @@ typedef
 _IRQL_requires_max_(PASSIVE_LEVEL)
 WDFAPI
 BOOLEAN
-(*PFN_NETOFFLOADISCHECKSUMTCPENABLED)(
+(NTAPI *PFN_NETOFFLOADISCHECKSUMTCPENABLED)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -1406,7 +1396,7 @@ typedef
 _IRQL_requires_max_(PASSIVE_LEVEL)
 WDFAPI
 BOOLEAN
-(*PFN_NETOFFLOADISCHECKSUMUDPENABLED)(
+(NTAPI *PFN_NETOFFLOADISCHECKSUMUDPENABLED)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -1424,10 +1414,68 @@ NetOffloadIsChecksumUdpEnabled(
     return ((PFN_NETOFFLOADISCHECKSUMUDPENABLED) NetFunctions[NetOffloadIsChecksumUdpEnabledTableIndex])(NetDriverGlobals, Offload);
 }
 
+//
+// NET Function: NetAdapterReportWakeReasonPacket
+//
+typedef
+_IRQL_requires_max_(PASSIVE_LEVEL)
+WDFAPI
+VOID
+(NTAPI *PFN_NETADAPTERREPORTWAKEREASONPACKET)(
+    _In_
+    PNET_DRIVER_GLOBALS DriverGlobals,
+    _In_
+    NETADAPTER Adapter,
+    _In_
+    CONST NET_ADAPTER_WAKE_REASON_PACKET* Reason
+    );
+
+_IRQL_requires_max_(PASSIVE_LEVEL)
+FORCEINLINE
+VOID
+NetAdapterReportWakeReasonPacket(
+    _In_
+    NETADAPTER Adapter,
+    _In_
+    CONST NET_ADAPTER_WAKE_REASON_PACKET* Reason
+    )
+{
+    ((PFN_NETADAPTERREPORTWAKEREASONPACKET) NetFunctions[NetAdapterReportWakeReasonPacketTableIndex])(NetDriverGlobals, Adapter, Reason);
+}
+
+//
+// NET Function: NetAdapterReportWakeReasonMediaChange
+//
+typedef
+_IRQL_requires_max_(PASSIVE_LEVEL)
+WDFAPI
+VOID
+(NTAPI *PFN_NETADAPTERREPORTWAKEREASONMEDIACHANGE)(
+    _In_
+    PNET_DRIVER_GLOBALS DriverGlobals,
+    _In_
+    NETADAPTER Adapter,
+    _In_
+    NET_IF_MEDIA_CONNECT_STATE Reason
+    );
+
+_IRQL_requires_max_(PASSIVE_LEVEL)
+FORCEINLINE
+VOID
+NetAdapterReportWakeReasonMediaChange(
+    _In_
+    NETADAPTER Adapter,
+    _In_
+    NET_IF_MEDIA_CONNECT_STATE Reason
+    )
+{
+    ((PFN_NETADAPTERREPORTWAKEREASONMEDIACHANGE) NetFunctions[NetAdapterReportWakeReasonMediaChangeTableIndex])(NetDriverGlobals, Adapter, Reason);
+}
+
 
 
 
 WDF_EXTERN_C_END
 
-#endif // _NETADAPTER_1_4_H_
+#endif // _NETADAPTER_2_0_H_
 

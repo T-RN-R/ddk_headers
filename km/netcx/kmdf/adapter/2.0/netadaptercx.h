@@ -6,8 +6,8 @@
 //       (.x or .y) and use stubwork to regenerate the header
 //
 
-#ifndef _NETADAPTERCX_1_4_H_
-#define _NETADAPTERCX_1_4_H_
+#ifndef _NETADAPTERCX_2_0_H_
+#define _NETADAPTERCX_2_0_H_
 
 #ifndef WDF_EXTERN_C
   #ifdef __cplusplus
@@ -64,14 +64,16 @@ WDF_EXTERN_C_START
 
 #include <netadapter.h>
 
+#include <netpoweroffload.h>
+#include <netpoweroffloadlist.h>
+#include <netwakesource.h>
+#include <netwakesourcelist.h>
+
 
 #include <netconfiguration.h>
-#include <netrequest.h>
-#include <netrequestqueue.h>
-#include <netpowersettings.h>
 
 
 WDF_EXTERN_C_END
 
-#endif // _NETADAPTERCX_1_4_H_
+#endif // _NETADAPTERCX_2_0_H_
 

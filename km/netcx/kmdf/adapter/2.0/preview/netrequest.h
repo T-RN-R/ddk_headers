@@ -6,8 +6,8 @@
 //       (.x or .y) and use stubwork to regenerate the header
 //
 
-#ifndef _NETREQUEST_1_4_H_
-#define _NETREQUEST_1_4_H_
+#ifndef _NETREQUESTPREVIEW_2_0_H_
+#define _NETREQUESTPREVIEW_2_0_H_
 
 #ifndef WDF_EXTERN_C
   #ifdef __cplusplus
@@ -26,6 +26,39 @@ WDF_EXTERN_C_START
 
 
 
+
+DECLARE_HANDLE(NETREQUEST);
+
+
+//
+// NET Function: NetAdapterInitSetNetRequestAttributes
+//
+typedef
+_IRQL_requires_max_(PASSIVE_LEVEL)
+WDFAPI
+void
+(NTAPI *PFN_NETADAPTERINITSETNETREQUESTATTRIBUTES)(
+    _In_
+    PNET_DRIVER_GLOBALS DriverGlobals,
+    _Inout_
+    NETADAPTER_INIT* AdapterInit,
+    _In_
+    WDF_OBJECT_ATTRIBUTES* NetRequestAttributes
+    );
+
+_IRQL_requires_max_(PASSIVE_LEVEL)
+FORCEINLINE
+void
+NetAdapterInitSetNetRequestAttributes(
+    _Inout_
+    NETADAPTER_INIT* AdapterInit,
+    _In_
+    WDF_OBJECT_ATTRIBUTES* NetRequestAttributes
+    )
+{
+    ((PFN_NETADAPTERINITSETNETREQUESTATTRIBUTES) NetFunctions[NetAdapterInitSetNetRequestAttributesTableIndex])(NetDriverGlobals, AdapterInit, NetRequestAttributes);
+}
+
 //
 // NET Function: NetRequestRetrieveInputOutputBuffer
 //
@@ -33,7 +66,7 @@ typedef
 _IRQL_requires_max_(DISPATCH_LEVEL)
 WDFAPI
 NTSTATUS
-(*PFN_NETREQUESTRETRIEVEINPUTOUTPUTBUFFER)(
+(NTAPI *PFN_NETREQUESTRETRIEVEINPUTOUTPUTBUFFER)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -78,7 +111,7 @@ typedef
 _IRQL_requires_max_(DISPATCH_LEVEL)
 WDFAPI
 PNDIS_OID_REQUEST
-(*PFN_NETREQUESTWDMGETNDISOIDREQUEST)(
+(NTAPI *PFN_NETREQUESTWDMGETNDISOIDREQUEST)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -103,7 +136,7 @@ typedef
 _IRQL_requires_max_(DISPATCH_LEVEL)
 WDFAPI
 void
-(*PFN_NETREQUESTCOMPLETEWITHOUTINFORMATION)(
+(NTAPI *PFN_NETREQUESTCOMPLETEWITHOUTINFORMATION)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -132,7 +165,7 @@ typedef
 _IRQL_requires_max_(DISPATCH_LEVEL)
 WDFAPI
 void
-(*PFN_NETREQUESTSETDATACOMPLETE)(
+(NTAPI *PFN_NETREQUESTSETDATACOMPLETE)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -165,7 +198,7 @@ typedef
 _IRQL_requires_max_(DISPATCH_LEVEL)
 WDFAPI
 void
-(*PFN_NETREQUESTQUERYDATACOMPLETE)(
+(NTAPI *PFN_NETREQUESTQUERYDATACOMPLETE)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -198,7 +231,7 @@ typedef
 _IRQL_requires_max_(DISPATCH_LEVEL)
 WDFAPI
 void
-(*PFN_NETREQUESTMETHODCOMPLETE)(
+(NTAPI *PFN_NETREQUESTMETHODCOMPLETE)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -235,7 +268,7 @@ typedef
 _IRQL_requires_max_(DISPATCH_LEVEL)
 WDFAPI
 void
-(*PFN_NETREQUESTSETBYTESNEEDED)(
+(NTAPI *PFN_NETREQUESTSETBYTESNEEDED)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -264,7 +297,7 @@ typedef
 _IRQL_requires_max_(DISPATCH_LEVEL)
 WDFAPI
 NDIS_OID
-(*PFN_NETREQUESTGETID)(
+(NTAPI *PFN_NETREQUESTGETID)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -289,7 +322,7 @@ typedef
 _IRQL_requires_max_(DISPATCH_LEVEL)
 WDFAPI
 NDIS_PORT_NUMBER
-(*PFN_NETREQUESTGETPORTNUMBER)(
+(NTAPI *PFN_NETREQUESTGETPORTNUMBER)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -314,7 +347,7 @@ typedef
 _IRQL_requires_max_(DISPATCH_LEVEL)
 WDFAPI
 NDIS_NIC_SWITCH_ID
-(*PFN_NETREQUESTGETSWITCHID)(
+(NTAPI *PFN_NETREQUESTGETSWITCHID)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -339,7 +372,7 @@ typedef
 _IRQL_requires_max_(DISPATCH_LEVEL)
 WDFAPI
 NDIS_NIC_SWITCH_VPORT_ID
-(*PFN_NETREQUESTGETVPORTID)(
+(NTAPI *PFN_NETREQUESTGETVPORTID)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -364,7 +397,7 @@ typedef
 _IRQL_requires_max_(DISPATCH_LEVEL)
 WDFAPI
 NDIS_REQUEST_TYPE
-(*PFN_NETREQUESTGETTYPE)(
+(NTAPI *PFN_NETREQUESTGETTYPE)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -389,7 +422,7 @@ typedef
 _IRQL_requires_max_(DISPATCH_LEVEL)
 WDFAPI
 NETADAPTER
-(*PFN_NETREQUESTGETADAPTER)(
+(NTAPI *PFN_NETREQUESTGETADAPTER)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -412,5 +445,5 @@ NetRequestGetAdapter(
 
 WDF_EXTERN_C_END
 
-#endif // _NETREQUEST_1_4_H_
+#endif // _NETREQUESTPREVIEW_2_0_H_
 

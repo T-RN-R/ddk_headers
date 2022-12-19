@@ -6,8 +6,8 @@
 //       (.x or .y) and use stubwork to regenerate the header
 //
 
-#ifndef _NETADAPTEROFFLOADPREVIEW_1_4_H_
-#define _NETADAPTEROFFLOADPREVIEW_1_4_H_
+#ifndef _NETADAPTEROFFLOADPREVIEW_2_0_H_
+#define _NETADAPTEROFFLOADPREVIEW_2_0_H_
 
 #ifndef WDF_EXTERN_C
   #ifdef __cplusplus
@@ -32,6 +32,7 @@ _Function_class_(EVT_NET_ADAPTER_OFFLOAD_SET_LSO)
 _IRQL_requires_same_
 _IRQL_requires_max_(PASSIVE_LEVEL)
 void
+NTAPI
 EVT_NET_ADAPTER_OFFLOAD_SET_LSO(
     _In_
     NETADAPTER Adapter,
@@ -97,6 +98,67 @@ NET_ADAPTER_OFFLOAD_LSO_CAPABILITIES_INIT(
     LsoCapabilities->EvtAdapterOffloadSetLso = EvtAdapterOffloadSetLso;
 }
 
+typedef
+_Function_class_(EVT_NET_ADAPTER_OFFLOAD_SET_RSC)
+_IRQL_requires_same_
+_IRQL_requires_max_(PASSIVE_LEVEL)
+void
+NTAPI
+EVT_NET_ADAPTER_OFFLOAD_SET_RSC(
+    _In_
+    NETADAPTER Adapter,
+    _In_
+    NETOFFLOAD Offload
+);
+
+typedef EVT_NET_ADAPTER_OFFLOAD_SET_RSC *PFN_NET_ADAPTER_OFFLOAD_SET_RSC;
+
+typedef struct _NET_ADAPTER_OFFLOAD_RSC_CAPABILITIES
+{
+    //
+    // Size of structure
+    //
+    ULONG Size;
+
+    //
+    // Flag specifying whether the hardware can perform RSC on IPv4
+    //
+    BOOLEAN IPv4;
+
+    //
+    // Flag specifying whether the hardware can perform RSC on IPv6
+    //
+    BOOLEAN IPv6;
+
+    //
+    // Flag specifying whether the hardware can perform RSC on packets with Timestamp
+    //
+    BOOLEAN Timestamp;
+
+    PFN_NET_ADAPTER_OFFLOAD_SET_RSC
+        EvtAdapterOffloadSetRsc;
+
+} NET_ADAPTER_OFFLOAD_RSC_CAPABILITIES;
+
+inline
+void
+NET_ADAPTER_OFFLOAD_RSC_CAPABILITIES_INIT(
+    _Out_ NET_ADAPTER_OFFLOAD_RSC_CAPABILITIES * RscCapabilities,
+    _In_ BOOLEAN IPv4,
+    _In_ BOOLEAN IPv6,
+    _In_ BOOLEAN Timestamp,
+    _In_ PFN_NET_ADAPTER_OFFLOAD_SET_RSC EvtAdapterOffloadSetRsc
+)
+{
+    RtlZeroMemory(RscCapabilities, sizeof(NET_ADAPTER_OFFLOAD_RSC_CAPABILITIES));
+    RscCapabilities->Size = sizeof(NET_ADAPTER_OFFLOAD_RSC_CAPABILITIES);
+
+    RscCapabilities->IPv4 = IPv4;
+    RscCapabilities->IPv6 = IPv6;
+    RscCapabilities->Timestamp = Timestamp;
+    RscCapabilities->EvtAdapterOffloadSetRsc = EvtAdapterOffloadSetRsc;
+}
+
 
 //
 // NET Function: NetAdapterOffloadSetLsoCapabilities
@@ -105,7 +167,7 @@ typedef
 _IRQL_requires_max_(PASSIVE_LEVEL)
 WDFAPI
 void
-(*PFN_NETADAPTEROFFLOADSETLSOCAPABILITIES)(
+(NTAPI *PFN_NETADAPTEROFFLOADSETLSOCAPABILITIES)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -134,7 +196,7 @@ typedef
 _IRQL_requires_max_(PASSIVE_LEVEL)
 WDFAPI
 BOOLEAN
-(*PFN_NETOFFLOADISLSOIPV4ENABLED)(
+(NTAPI *PFN_NETOFFLOADISLSOIPV4ENABLED)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -159,7 +221,7 @@ typedef
 _IRQL_requires_max_(PASSIVE_LEVEL)
 WDFAPI
 BOOLEAN
-(*PFN_NETOFFLOADISLSOIPV6ENABLED)(
+(NTAPI *PFN_NETOFFLOADISLSOIPV6ENABLED)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -177,9 +239,113 @@ NetOffloadIsLsoIPv6Enabled(
     return ((PFN_NETOFFLOADISLSOIPV6ENABLED) NetFunctions[NetOffloadIsLsoIPv6EnabledTableIndex])(NetDriverGlobals, Offload);
 }
 
+//
+// NET Function: NetAdapterOffloadSetRscCapabilities
+//
+typedef
+_IRQL_requires_max_(PASSIVE_LEVEL)
+WDFAPI
+void
+(NTAPI *PFN_NETADAPTEROFFLOADSETRSCCAPABILITIES)(
+    _In_
+    PNET_DRIVER_GLOBALS DriverGlobals,
+    _In_
+    NETADAPTER Adapter,
+    _In_
+    NET_ADAPTER_OFFLOAD_RSC_CAPABILITIES* HardwareCapabilities
+    );
+
+_IRQL_requires_max_(PASSIVE_LEVEL)
+FORCEINLINE
+void
+NetAdapterOffloadSetRscCapabilities(
+    _In_
+    NETADAPTER Adapter,
+    _In_
+    NET_ADAPTER_OFFLOAD_RSC_CAPABILITIES* HardwareCapabilities
+    )
+{
+    ((PFN_NETADAPTEROFFLOADSETRSCCAPABILITIES) NetFunctions[NetAdapterOffloadSetRscCapabilitiesTableIndex])(NetDriverGlobals, Adapter, HardwareCapabilities);
+}
+
+//
+// NET Function: NetOffloadIsRscIPv4Enabled
+//
+typedef
+_IRQL_requires_max_(PASSIVE_LEVEL)
+WDFAPI
+BOOLEAN
+(NTAPI *PFN_NETOFFLOADISRSCIPV4ENABLED)(
+    _In_
+    PNET_DRIVER_GLOBALS DriverGlobals,
+    _In_
+    NETOFFLOAD Offload
+    );
+
+_IRQL_requires_max_(PASSIVE_LEVEL)
+FORCEINLINE
+BOOLEAN
+NetOffloadIsRscIPv4Enabled(
+    _In_
+    NETOFFLOAD Offload
+    )
+{
+    return ((PFN_NETOFFLOADISRSCIPV4ENABLED) NetFunctions[NetOffloadIsRscIPv4EnabledTableIndex])(NetDriverGlobals, Offload);
+}
+
+//
+// NET Function: NetOffloadIsRscIPv6Enabled
+//
+typedef
+_IRQL_requires_max_(PASSIVE_LEVEL)
+WDFAPI
+BOOLEAN
+(NTAPI *PFN_NETOFFLOADISRSCIPV6ENABLED)(
+    _In_
+    PNET_DRIVER_GLOBALS DriverGlobals,
+    _In_
+    NETOFFLOAD Offload
+    );
+
+_IRQL_requires_max_(PASSIVE_LEVEL)
+FORCEINLINE
+BOOLEAN
+NetOffloadIsRscIPv6Enabled(
+    _In_
+    NETOFFLOAD Offload
+    )
+{
+    return ((PFN_NETOFFLOADISRSCIPV6ENABLED) NetFunctions[NetOffloadIsRscIPv6EnabledTableIndex])(NetDriverGlobals, Offload);
+}
+
+//
+// NET Function: NetOffloadIsRscTimestampEnabled
+//
+typedef
+_IRQL_requires_max_(PASSIVE_LEVEL)
+WDFAPI
+BOOLEAN
+(NTAPI *PFN_NETOFFLOADISRSCTIMESTAMPENABLED)(
+    _In_
+    PNET_DRIVER_GLOBALS DriverGlobals,
+    _In_
+    NETOFFLOAD Offload
+    );
+
+_IRQL_requires_max_(PASSIVE_LEVEL)
+FORCEINLINE
+BOOLEAN
+NetOffloadIsRscTimestampEnabled(
+    _In_
+    NETOFFLOAD Offload
+    )
+{
+    return ((PFN_NETOFFLOADISRSCTIMESTAMPENABLED) NetFunctions[NetOffloadIsRscTimestampEnabledTableIndex])(NetDriverGlobals, Offload);
+}
+
 
 
 WDF_EXTERN_C_END
 
-#endif // _NETADAPTEROFFLOADPREVIEW_1_4_H_
+#endif // _NETADAPTEROFFLOADPREVIEW_2_0_H_
 

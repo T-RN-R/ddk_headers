@@ -6,8 +6,8 @@
 //       (.x or .y) and use stubwork to regenerate the header
 //
 
-#ifndef _NETTXQUEUE_1_4_H_
-#define _NETTXQUEUE_1_4_H_
+#ifndef _NETTXQUEUE_2_0_H_
+#define _NETTXQUEUE_2_0_H_
 
 #ifndef WDF_EXTERN_C
   #ifdef __cplusplus
@@ -39,7 +39,7 @@ _Must_inspect_result_
 _IRQL_requires_max_(PASSIVE_LEVEL)
 WDFAPI
 NTSTATUS
-(*PFN_NETTXQUEUECREATE)(
+(NTAPI *PFN_NETTXQUEUECREATE)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _Inout_
@@ -77,7 +77,7 @@ typedef
 _IRQL_requires_max_(HIGH_LEVEL)
 WDFAPI
 void
-(*PFN_NETTXQUEUENOTIFYMORECOMPLETEDPACKETSAVAILABLE)(
+(NTAPI *PFN_NETTXQUEUENOTIFYMORECOMPLETEDPACKETSAVAILABLE)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -102,7 +102,7 @@ typedef
 _IRQL_requires_max_(PASSIVE_LEVEL)
 WDFAPI
 ULONG
-(*PFN_NETTXQUEUEINITGETQUEUEID)(
+(NTAPI *PFN_NETTXQUEUEINITGETQUEUEID)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -127,7 +127,7 @@ typedef
 _IRQL_requires_max_(PASSIVE_LEVEL)
 WDFAPI
 const NET_RING_COLLECTION *
-(*PFN_NETTXQUEUEGETRINGCOLLECTION)(
+(NTAPI *PFN_NETTXQUEUEGETRINGCOLLECTION)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
@@ -152,13 +152,13 @@ typedef
 _IRQL_requires_max_(PASSIVE_LEVEL)
 WDFAPI
 void
-(*PFN_NETTXQUEUEGETEXTENSION)(
+(NTAPI *PFN_NETTXQUEUEGETEXTENSION)(
     _In_
     PNET_DRIVER_GLOBALS DriverGlobals,
     _In_
     NETPACKETQUEUE PacketQueue,
     _In_
-    CONST NET_PACKET_EXTENSION_QUERY* Query,
+    CONST NET_EXTENSION_QUERY* Query,
     _Out_
     NET_EXTENSION* Extension
     );
@@ -170,7 +170,7 @@ NetTxQueueGetExtension(
     _In_
     NETPACKETQUEUE PacketQueue,
     _In_
-    CONST NET_PACKET_EXTENSION_QUERY* Query,
+    CONST NET_EXTENSION_QUERY* Query,
     _Out_
     NET_EXTENSION* Extension
     )
@@ -183,5 +183,5 @@ NetTxQueueGetExtension(
 
 WDF_EXTERN_C_END
 
-#endif // _NETTXQUEUE_1_4_H_
+#endif // _NETTXQUEUE_2_0_H_
 

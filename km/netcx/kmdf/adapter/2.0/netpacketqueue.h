@@ -6,8 +6,8 @@
 //       (.x or .y) and use stubwork to regenerate the header
 //
 
-#ifndef _NETPACKETQUEUE_1_4_H_
-#define _NETPACKETQUEUE_1_4_H_
+#ifndef _NETPACKETQUEUE_2_0_H_
+#define _NETPACKETQUEUE_2_0_H_
 
 #ifndef WDF_EXTERN_C
   #ifdef __cplusplus
@@ -31,6 +31,7 @@ _Function_class_(EVT_PACKET_QUEUE_START)
 _IRQL_requires_same_
 _IRQL_requires_(PASSIVE_LEVEL)
 void
+NTAPI
 EVT_PACKET_QUEUE_START(
     _In_
     NETPACKETQUEUE PacketQueue
@@ -43,6 +44,7 @@ _Function_class_(EVT_PACKET_QUEUE_STOP)
 _IRQL_requires_same_
 _IRQL_requires_(PASSIVE_LEVEL)
 void
+NTAPI
 EVT_PACKET_QUEUE_STOP(
     _In_
     NETPACKETQUEUE PacketQueue
@@ -55,6 +57,7 @@ _Function_class_(EVT_PACKET_QUEUE_CANCEL)
 _IRQL_requires_same_
 _IRQL_requires_(PASSIVE_LEVEL)
 void
+NTAPI
 EVT_PACKET_QUEUE_CANCEL(
     _In_
     NETPACKETQUEUE PacketQueue
@@ -67,6 +70,7 @@ _Function_class_(EVT_PACKET_QUEUE_SET_NOTIFICATION_ENABLED)
 _IRQL_requires_same_
 _IRQL_requires_(PASSIVE_LEVEL)
 void
+NTAPI
 EVT_PACKET_QUEUE_SET_NOTIFICATION_ENABLED(
     _In_
     NETPACKETQUEUE PacketQueue,
@@ -81,6 +85,7 @@ _Function_class_(EVT_PACKET_QUEUE_ADVANCE)
 _IRQL_requires_same_
 _IRQL_requires_max_(DISPATCH_LEVEL)
 void
+NTAPI
 EVT_PACKET_QUEUE_ADVANCE(
     _In_
     NETPACKETQUEUE PacketQueue
@@ -128,5 +133,5 @@ NET_PACKET_QUEUE_CONFIG_INIT(
 
 WDF_EXTERN_C_END
 
-#endif // _NETPACKETQUEUE_1_4_H_
+#endif // _NETPACKETQUEUE_2_0_H_
 
